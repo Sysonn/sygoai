@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, handleKeyPress} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import logo from './load.gif'
 import axios from 'axios';
 import styled from 'styled-components';
@@ -210,7 +210,7 @@ const Chat = () => {
 
       <ChatForm onSubmit={handleSubmit}>
         {/* <ChatInput type="text" value={input} onKeyPress={handleKeyPress} onChange={e => setInput(e.target.value)} /> */}
-        <ChatInput type="text" value={input} onKeyPress={handleKeyPress} onChange={e => setInput(e.target.value)} />
+        <ChatInput type="text" value={input} onChange={e => setInput(e.target.value)} />
         <ChatButton type="submit">Send</ChatButton>
       </ChatForm>
     </ChatContainer>
