@@ -150,6 +150,7 @@ const ChatForm = styled.form`
   background-color: #3a3b3c;
   border-radius: 10px;
   padding: 10px;
+  font-size: 16px;
 
   @media (min-width: 768px) {
     max-width: 768px;
@@ -172,6 +173,7 @@ const ChatInput = styled.input`
   color: #dadce1;
   width: 100%;
   margin-right: 0.5rem;
+  font-size: 16px;
 `;
 
 const ChatButton = styled.button`
