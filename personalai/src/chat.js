@@ -17,6 +17,93 @@ import "prismjs/components/prism-markup";
 
 import 'prismjs/themes/prism-okaidia.css';
 
+
+// const ChatContainer = styled.div`
+//   background-color: #1a1b1c;
+//   color: #dadce1;
+//   min-height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+// `;
+
+// const ChatHeader = styled.h1`
+//   margin-bottom: 1rem;
+//   font-size: 2rem;
+// `;
+
+// const ChatConversation = styled.div`
+// background-color: #242526;
+// padding: 10px;
+// margin-bottom: 10px;
+// border-radius: 10px;
+// width: 1000px;
+// `;
+
+// const ChatForm = styled.form`
+//   display: flex;
+//   float: right;
+//   flex-direction: row;
+//   align-items: center;
+//   width: 1000px;
+//   margin-bottom: 10px;
+//   background-color: #3a3b3c;
+//   border-radius: 10px;
+//   padding: 10px;
+// `;
+
+// const ChatInput = styled.input`
+//   background-color: #3a3b3c;
+//   border: none;
+//   padding: 0.5rem 1rem;
+//   color: #dadce1;
+//   width: 100%;
+//   margin-right: 0.5rem;
+  
+// `;
+
+// const ChatButton = styled.button`
+//   border-radius: 10px;
+//   background-color: #7289da;
+//   border: none;
+//   color: #ffffff;
+//   padding: 0.5rem 1rem;
+//   cursor: pointer;
+//   transition: background-color 0.2s ease-in-out;
+
+//   &:hover {
+//     background-color: #5b6eae;
+//   }
+// `;
+
+
+// const ChatBubble = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: ${props => props.isResponse ? 'flex-end' : 'flex-start'};
+//   opacity: ${props => props.isLoading ? '0.5' : '1'}; // set opacity to 0.5 when loading is true
+//   margin: 1rem;
+  
+// `;
+
+
+// const ChatMessage = styled.div`
+//   background-color: ${props => props.isResponse ? '#7289da' : '#3a3b3c'};
+//   color: ${props => props.isResponse ? '#ffffff' : '#dadce1'};
+//   padding: 0.5rem 1rem;
+//   border-radius: ${props => props.isResponse ? '10px 10px 0 10px' : '10px 10px 10px 0'};
+//   max-width: 90%;
+//   overflow-x: auto;
+  
+//   /* Set the font family and size for the highlighted code */
+//   code {
+//     font-family: 'Courier New', Courier, monospace;
+//     font-size: 14px;
+//   }
+  
+// `;
+
 const ChatContainer = styled.div`
   background-color: #1a1b1c;
   color: #dadce1;
@@ -33,23 +120,49 @@ const ChatHeader = styled.h1`
 `;
 
 const ChatConversation = styled.div`
-background-color: #242526;
-padding: 10px;
-margin-bottom: 10px;
-border-radius: 10px;
-width: 1000px;
+  background-color: #242526;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 992px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+  }
 `;
 
 const ChatForm = styled.form`
   display: flex;
-  float: right;
   flex-direction: row;
   align-items: center;
-  width: 1000px;
+  width: 90%;
+  max-width: 600px;
   margin-bottom: 10px;
   background-color: #3a3b3c;
   border-radius: 10px;
   padding: 10px;
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 992px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+  }
+
 `;
 
 const ChatInput = styled.input`
@@ -59,7 +172,6 @@ const ChatInput = styled.input`
   color: #dadce1;
   width: 100%;
   margin-right: 0.5rem;
-  
 `;
 
 const ChatButton = styled.button`
@@ -76,34 +188,33 @@ const ChatButton = styled.button`
   }
 `;
 
-
 const ChatBubble = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: ${props => props.isResponse ? 'flex-end' : 'flex-start'};
-  opacity: ${props => props.isLoading ? '0.5' : '1'}; // set opacity to 0.5 when loading is true
+  align-items: ${(props) => (props.isResponse ? "flex-end" : "flex-start")};
+  opacity: ${(props) => (props.isLoading ? "0.5" : "1")}; // set opacity to 0.5 when loading is true
   margin: 1rem;
-  
 `;
-
 
 const ChatMessage = styled.div`
-  background-color: ${props => props.isResponse ? '#7289da' : '#3a3b3c'};
-  color: ${props => props.isResponse ? '#ffffff' : '#dadce1'};
+  background-color: ${(props) => (props.isResponse ? "#7289da" : "#3a3b3c")};
+  color: ${(props) => (props.isResponse ? "#ffffff" : "#dadce1")};
   padding: 0.5rem 1rem;
-  border-radius: ${props => props.isResponse ? '10px 10px 0 10px' : '10px 10px 10px 0'};
+  border-radius: ${(props) =>
+    props.isResponse ? "10px 10px 0 10px" : "10px 10px 10px 0"};
   max-width: 90%;
   overflow-x: auto;
-  
+
   /* Set the font family and size for the highlighted code */
   code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 14px;
   }
-  
+
+  @media screen and (min-width: 480px) {
+    font-size: 16px;
+  }
 `;
-
-
 
 const Chat = () => {
   const [input, setInput] = useState('');
@@ -122,43 +233,12 @@ const Chat = () => {
   }, [responses]);
 
 
-  // function ChatInput(props) {
-  //   const [inputValue, setInputValue] = useState("");
-  
-  //   function handleKeyDown(event) {
-  //     if (event.key === "Enter" && !event.shiftKey) {
-  //       event.preventDefault();
-  //       props.onSendMessage(inputValue);
-  //       setInputValue("");
-  //     } else if (event.key === "Enter" && event.shiftKey) {
-  //       setInputValue(inputValue + "\n");
-  //     }
-  //   }
-  
-  //   function handleChange(event) {
-  //     setInputValue(event.target.value);
-  //   }
-  
-  //   return (
-  //     <div className="chat-input">
-  //       <textarea
-  //         placeholder="Type your message here..."
-  //         value={inputValue}
-  //         onChange={handleChange}
-  //         onKeyDown={handleKeyDown}
-  //       />
-  //     </div>
-  //   );
-  // }
-  
-    //export default ChatInput;
-
-
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true); // set loading to true when API call is made
     try {
-      const res = await axios.post('/.netlify/functions/server', { input });
+      const res = await axios.post(['/.netlify/functions/server'], { input });
+      //const res = await axios.post(['http://localhost:5000/chat'], { input });
       setResponses([...responses, {input, response: res.data.response}]);
     } catch (err) {
       console.error(err);
