@@ -167,7 +167,7 @@ const Chat = () => {
 
  return (
     <ChatContainer>
-      <ChatHeader>OpenAI Chat</ChatHeader>
+      <ChatHeader>SyGoAI Chat</ChatHeader>
       <ChatConversation ref={conversationRef}>
       {loading ? ( // render a loading component if loading is true
           <div className='loadingModal'><img src={logo} alt='Loading...'></img></div>
