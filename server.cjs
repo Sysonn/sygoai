@@ -26,6 +26,8 @@ app.post('/chat', async (req, res) => {
   res.json({ response: response.data.choices[0].message.content});
 });
 
+app.use(express.static(''));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
