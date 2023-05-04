@@ -158,7 +158,7 @@ const Chat = () => {
     e.preventDefault();
     setLoading(true); // set loading to true when API call is made
     try {
-      const res = await axios.post('https://sygoai.netlify.app:5000', { input });
+      const res = await axios.post('https://localhost:5000/chat', { input });
       setResponses([...responses, {input, response: res.data.response}]);
     } catch (err) {
       console.error(err);
