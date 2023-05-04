@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+.typewriter{
+  content: attr(data-text); /* Set the content to the value of the data-text attribute of the element */
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  animation: 
+    typing 3.5s steps(40, end),
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.loadingModal{
+  font-size: 30px;
+  /* color: #1495ff; */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+img{
+  width: 80px;
+}
