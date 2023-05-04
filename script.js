@@ -22,5 +22,6 @@ userInterface.on("line", async input => {
     messages: [{ role: "user", content: input }],
   })
   console.log(response.data.choices[0].message.content)
+  console.log(response.data.choices[0].message)
   userInterface.prompt()
 })

@@ -23,6 +23,7 @@ app.post('/chat', async (req, res) => {
     messages: [{ role: "user", content: input }],
   });
 
+ console.log(response.data.choices[0].message.content);
   res.json({ response: response.data.choices[0].message.content});
 });
 

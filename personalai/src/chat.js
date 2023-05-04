@@ -47,6 +47,9 @@ const ChatForm = styled.form`
   align-items: center;
   width: 1000px;
   margin-bottom: 10px;
+  background-color: #3a3b3c;
+  border-radius: 10px;
+  padding: 10px;
 `;
 
 const ChatInput = styled.input`
@@ -119,34 +122,34 @@ const Chat = () => {
   }, [responses]);
 
 
-//   function ChatInput(props) {
-//     const [inputValue, setInputValue] = useState("");
+  // function ChatInput(props) {
+  //   const [inputValue, setInputValue] = useState("");
   
-//     function handleKeyDown(event) {
-//       if (event.key === "Enter" && !event.shiftKey) {
-//         event.preventDefault();
-//         props.onSendMessage(inputValue);
-//         setInputValue("");
-//       } else if (event.key === "Enter" && event.shiftKey) {
-//         setInputValue(inputValue + "\n");
-//       }
-//     }
+  //   function handleKeyDown(event) {
+  //     if (event.key === "Enter" && !event.shiftKey) {
+  //       event.preventDefault();
+  //       props.onSendMessage(inputValue);
+  //       setInputValue("");
+  //     } else if (event.key === "Enter" && event.shiftKey) {
+  //       setInputValue(inputValue + "\n");
+  //     }
+  //   }
   
-//     function handleChange(event) {
-//       setInputValue(event.target.value);
-//     }
+  //   function handleChange(event) {
+  //     setInputValue(event.target.value);
+  //   }
   
-//     return (
-//       <div className="chat-input">
-//         <textarea
-//           placeholder="Type your message here..."
-//           value={inputValue}
-//           onChange={handleChange}
-//           onKeyDown={handleKeyDown}
-//         />
-//       </div>
-//     );
-//   }
+  //   return (
+  //     <div className="chat-input">
+  //       <textarea
+  //         placeholder="Type your message here..."
+  //         value={inputValue}
+  //         onChange={handleChange}
+  //         onKeyDown={handleKeyDown}
+  //       />
+  //     </div>
+  //   );
+  // }
   
     //export default ChatInput;
 
@@ -155,7 +158,7 @@ const Chat = () => {
     e.preventDefault();
     setLoading(true); // set loading to true when API call is made
     try {
-      const res = await axios.post('http://localhost:5000/chat', { input });
+      const res = await axios.post('https://sygoai.netlify.app', { input });
       setResponses([...responses, {input, response: res.data.response}]);
     } catch (err) {
       console.error(err);
@@ -210,7 +213,20 @@ const Chat = () => {
 
       <ChatForm onSubmit={handleSubmit}>
         {/* <ChatInput type="text" value={input} onKeyPress={handleKeyPress} onChange={e => setInput(e.target.value)} /> */}
-        <ChatInput type="text" value={input} onChange={e => setInput(e.target.value)} />
+        <ChatInput as="textarea" value={input} 
+            onChange={e => setInput(e.target.value)} 
+            onKeyDown={e => {
+              if (e.keyCode === 13 && e.shiftKey) {
+                e.preventDefault();
+                setInput(input + "\n");
+              }else{
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }
+            }}
+        />
         <ChatButton type="submit">Send</ChatButton>
       </ChatForm>
     </ChatContainer>
