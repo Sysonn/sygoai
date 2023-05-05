@@ -27,12 +27,22 @@ code {
   to { width: 100% }
 }
 
-.loadingModal{
-  font-size: 30px;
-  /* color: #1495ff; */
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+.loadingModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.loadingModal img {
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  bottom: 0;
+  transform: translate(-50%, -50%);
+  width: 300px;
+
 }
 
 .imgLogo{

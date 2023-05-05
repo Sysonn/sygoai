@@ -20,8 +20,8 @@ export const ChatHeader = styled.h1`
 export const ChatConversation = styled.div`
   background-color: #242526;
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  margin-bottom: 180px;
+  border-radius: 50px;
   width: 90%;
   max-width: 600px;
 
@@ -36,6 +36,32 @@ export const ChatConversation = styled.div`
   @media (min-width: 1200px) {
     max-width: 1200px;
   }
+`;
+
+export const ChatFormContainer = styled.div`
+position: fixed;
+bottom: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 600px;
+padding: 10px;
+font-size: 16px;
+background-color: #1a1b1c;
+
+@media (min-width: 768px) {
+  max-width: 768px;
+}
+
+@media (min-width: 992px) {
+  max-width: 992px;
+}
+
+@media (min-width: 1200px) {
+  max-width: 1200px;
+}
+
 `;
 
 export const ChatForm = styled.form`
@@ -64,9 +90,26 @@ export const ChatForm = styled.form`
 
 `;
 
+export const ChatOptionsContainer = styled.form`
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: right;
+  width: 90%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+`;
+
+export const ScrollToBottomButton = styled.button`
+
+    background-color: #7289da;
+`;
+
 export const ChatInput = styled.input`
   background-color: #3a3b3c;
   border: none;
+  height: 20px;
   padding: 0.5rem 1rem;
   color: #dadce1;
   width: 100%;

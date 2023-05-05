@@ -16,7 +16,7 @@ import "prismjs/components/prism-php";
 
 import { ThemeProvider } from 'styled-components';
 // import styled components from ChatStyles.js
-import { ChatContainer, ChatHeader, ChatConversation, ChatForm, ChatInput, ChatButton, ChatBubble, ChatMessage } from './ChatStyles'; 
+import { ChatContainer, ChatHeader, ChatConversation, ChatFormContainer, ChatForm, ChatOptionsContainer, ChatInput, ChatButton, ChatBubble, ChatMessage } from './ChatStyles'; 
 // import prism css
 import 'prismjs/themes/prism-okaidia.css';
 import { themes } from './themes.js';
@@ -33,7 +33,7 @@ const Chat = () => {
     name: "theme1",
     backgroundColor: "#1a1b1c",
     color: "#dadce1",
-    buttonBackgroundColor: "#7289da",
+    buttonBackgroundColor: "#cf8c36",
     buttonColor: "#ffffff",
     bubbleBackgroundColor: "#cf8c36",
     bubbleColor: "#ffffff",
@@ -51,14 +51,25 @@ const Chat = () => {
       </div>
     );
   };
+
+  const ScrollToBottomButton = ({ theme }) => {
+
+    const scrollToBottom = () => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  
+    return (
+      <button style={{ width: "30%", backgroundColor: theme.buttonBackgroundColor,}} onClick={(e) => { e.preventDefault(); scrollToBottom(); }}>🔽</button>
+      
+    );
+  };
   
   const handleThemeChange = (theme) => {
     setTheme(theme);
   };
-
-  useEffect(() => {
-    conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
-  }, [responses]);
 
   useEffect(() => {
     Prism.highlightAll();
@@ -69,8 +80,8 @@ const Chat = () => {
     e.preventDefault();
     setLoading(true); // set loading to true when API call is made
     try {
-      const res = await axios.post(['/.netlify/functions/server'], { input });
-       //const res = await axios.post(['http://localhost:5000/chat'], { input });
+      //const res = await axios.post(['/.netlify/functions/server'], { input });
+       const res = await axios.post(['http://localhost:5000/chat'], { input });
       setResponses([...responses, {input, response: res.data.response}]);
     } catch (err) {
       console.error(err);
@@ -81,14 +92,15 @@ const Chat = () => {
 
         return (
           <ThemeProvider theme={theme}>
-            <ChatContainer>
+            <div className="loadingModal" style={{ display: loading ? 'block' : 'none' }}>
+                  <img src={logo} alt="Loading..." />
+                </div>
+            <ChatContainer ref={conversationRef}>
               <ChatHeader><div><img src={mainlogo} alt='SyGoAI Chat' className='imgLogo'></img></div></ChatHeader>
-              <ChatConversation ref={conversationRef}>
-              {loading ? ( // render a loading component if loading is true
-                  <div className='loadingModal'><img src={logo} alt='Loading...'></img></div>
-                ) : (
-                
-                responses.map((msg, index) => (
+              <ChatConversation ref={conversationRef} >
+              
+
+              {responses.map((msg, index) => (
                   <div key={index}>
 
                     <ChatBubble isResponse={false} isLoading={loading}>
@@ -123,33 +135,39 @@ const Chat = () => {
 
                   </div>
                 ))
-              )}
+              }
               </ChatConversation> 
-
-              <ChatForm onSubmit={handleSubmit}>
-                {/* <ChatInput type="text" value={input} onKeyPress={handleKeyPress} onChange={e => setInput(e.target.value)} /> */}
-                <ChatInput as="textarea" value={input} 
-                    onChange={e => setInput(e.target.value)} 
-                    onKeyDown={e => {
-                      if (e.keyCode === 13 && e.shiftKey) {
-                        e.preventDefault();
-                        setInput(input + "\n");
-                      }else{
-                        if (e.keyCode === 13) {
+              
+              <ChatFormContainer>
+                <ChatForm onSubmit={handleSubmit}>
+                  {/* <ChatInput type="text" value={input} onKeyPress={handleKeyPress} onChange={e => setInput(e.target.value)} /> */}
+                  <ChatInput as="textarea" value={input} 
+                      onChange={e => setInput(e.target.value)} 
+                      onKeyDown={e => {
+                        if (e.keyCode === 13 && e.shiftKey) {
                           e.preventDefault();
-                          handleSubmit(e);
+                          setInput(input + "\n");
+                        }else{
+                          if (e.keyCode === 13) {
+                            e.preventDefault();
+                            handleSubmit(e);
+                          }
                         }
-                      }
-                    }}
-                />
-                <ChatButton type="submit">Send</ChatButton>
-              </ChatForm>
+                      }}
+                  />
+                  <ChatButton type="submit">Send</ChatButton>
+                </ChatForm>
+                
+                <ChatOptionsContainer> 
+                  
+                  <ThemeSwitcher onThemeChange={handleThemeChange} />
+                  <ScrollToBottomButton theme={theme}/>  
+                </ChatOptionsContainer>  
 
-               {/* <ThemeSwitcher onThemeChange={handleThemeChange} /> */}
-                <ThemeSwitcher onThemeChange={handleThemeChange} />
-
+              </ChatFormContainer>
             </ChatContainer>
             </ThemeProvider>  
+           
           );
 };
 
