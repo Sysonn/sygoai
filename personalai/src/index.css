@@ -35,6 +35,27 @@ code {
   align-items: center; 
 }
 
+.imgLogo{
+  width: 300px;
+}
+
+
 img{
-  width: 80px;
+  width: 100px;
+}
+
+button{
+  border-radius: 10px;
+  background-color: #828282;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-right: 20px;
+ 
+}
+
+button:hover {
+  background-color: #4e4e4e;
 }
