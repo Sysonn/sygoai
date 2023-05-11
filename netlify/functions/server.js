@@ -10,10 +10,27 @@ const openai = new OpenAIApi(new Configuration({
 exports.handler = async function (event, context) {
   const { input } = JSON.parse(event.body);
 
+  //Add the historical context to the next prompt.
+  const messages = [{ role: "user", content: input }];
+  if (openai.history) {
+    messages.unshift(...openai.history);
+  }
+  ///////////////////////////////////////////////////
+
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: input }],
+    //messages: [{ role: "user", content: input }],
+    messages
   });
+
+  // Create the history array if it doesn't exist.
+  if (!openai.history) {
+    openai.history = [];
+  }
+  openai.history.push({role: 'user', content: input});
+  openai.history.push({role: 'assistant', content: response.data.choices[0].message.content});
+  const newInput = [...openai.history, { role: 'user', content: input }];
+///////////////////////////////////////////////////
 
   return {
     statusCode: 200,
